@@ -1,20 +1,20 @@
 - name: conditions demo
   hosts: local
   connection: local
+  gather_facts: false
+
   vars_prompt:
-  - name: NUMBER
-  prompt: Please enter your number
-  private: false
-    
+    - name: NUMBER
+      prompt: Please enter your number
+      private: false
+
   tasks:
-  - name: print if the number is less than or equal to 100
-    ansible.builtin.debug:
-      msg: "Given number {{ NUMBER }} is less than or equal to 100"
-    when: NUMBER <= 100
+    - name: print if the number is less than or equal to 100
+      ansible.builtin.debug:
+        msg: "Given number {{ NUMBER }} is less than or equal to 100"
+      when: NUMBER | int <= 100
 
-  - name: print if the number is greater than 100
-    ansible.builtin.debug:
-      msg: "Given number {{ NUMBER }} is greater than 100"
-    when: NUMBER > 100
-
-    
+    - name: print if the number is greater than 100
+      ansible.builtin.debug:
+        msg: "Given number {{ NUMBER }} is greater than 100"
+      when: NUMBER | int > 100
